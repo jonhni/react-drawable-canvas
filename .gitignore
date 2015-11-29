@@ -40,6 +40,7 @@ Thumbs.db
 # Custom
 #####################
 node_modules
+lib/index.js
 
 # Bundles created by webpack
 **/public/*.js

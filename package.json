@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/jonhni/react-drawable-canvas/issues"
   },
-  "homepage": "https://github.com/jonhni/react-drawable-canvas#readme"
+  "homepage": "https://github.com/jonhni/react-drawable-canvas#readme",
+  "devDependencies": {
+    "react-tools": "^0.13.3"
+  }
 }
