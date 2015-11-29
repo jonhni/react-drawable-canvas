@@ -1,0 +1,22 @@
+{
+  "name": "react-drawable-canvas",
+  "version": "0.1.0",
+  "description": "A React.js component for drawable canvas\"",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonhni/react-drawable-canvas.git"
+  },
+  "keywords": [
+    "draw"
+  ],
+  "author": "jonhni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonhni/react-drawable-canvas/issues"
+  },
+  "homepage": "https://github.com/jonhni/react-drawable-canvas#readme"
+}
