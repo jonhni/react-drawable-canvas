@@ -4,7 +4,9 @@
   "description": "A React.js component for drawable canvas\"",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "jsx lib/index.jsx > lib/index.js",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
