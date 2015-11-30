@@ -1,3 +1,4 @@
+"use strict";
 const React = require('react');
 const ReactDOM = require('react-dom');
 const PropTypes = React.PropTypes;
@@ -8,7 +9,8 @@ const DrawableCanvas = React.createClass({
     lineWidth: PropTypes.number,
     canvasStyle: PropTypes.shape({
       backgroundColor: PropTypes.string
-    })
+    }),
+    clear: PropTypes.bool
   },
   getDefaultProps() {
     return {
@@ -16,7 +18,8 @@ const DrawableCanvas = React.createClass({
       lineWidth: 4,
       canvasStyle: {
         backgroundColor: "##FFFFFF"
-      }
+      },
+      clear: false
     };
   },
   getInitialState(){
@@ -25,7 +28,8 @@ const DrawableCanvas = React.createClass({
       context: null,
       drawing: false,
       lastX: 0,
-      lastY: 0
+      lastY: 0,
+      history: []
     };
   },
   componentDidMount(){
@@ -38,12 +42,17 @@ const DrawableCanvas = React.createClass({
 
     let ctx = canvas.getContext('2d');
     let offsetleft = canvas.getBoundingClientRect();
+
     this.setState({
       canvas: canvas,
       context: ctx
     });
   },
-
+  componentWillReceiveProps: function(nextProps) {
+    if(nextProps.clear){
+      this.resetCanvas();
+    }
+  },
   handleOnMouseDown(e){
     let rect = this.state.canvas.getBoundingClientRect();
     this.state.context.beginPath();
@@ -83,7 +92,11 @@ const DrawableCanvas = React.createClass({
     this.state.context.lineTo(cX,cY);
     this.state.context.stroke();
   },
-
+  resetCanvas(){
+    let width = this.state.context.canvas.width;
+    let height = this.state.context.canvas.height;
+    this.state.context.clearRect(0, 0, width, height);
+  },
   render() {
     return (
       <canvas style={this.props.canvasStyle}
