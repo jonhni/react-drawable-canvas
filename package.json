@@ -13,7 +13,9 @@
     "url": "git+https://github.com/jonhni/react-drawable-canvas.git"
   },
   "keywords": [
-    "draw"
+    "drawing",
+    "react-component",
+    "cavas"
   ],
   "author": "jonhni",
   "license": "MIT",
