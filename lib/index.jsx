@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const React = require('react');
 const ReactDOM = require('react-dom');
 const PropTypes = React.PropTypes;
@@ -14,10 +14,10 @@ const DrawableCanvas = React.createClass({
   },
   getDefaultProps() {
     return {
-      brushColor: "#000000",
+      brushColor: '#000000',
       lineWidth: 4,
       canvasStyle: {
-        backgroundColor: "##FFFFFF"
+        backgroundColor: '#FFFFFF'
       },
       clear: false
     };
@@ -41,8 +41,7 @@ const DrawableCanvas = React.createClass({
     canvas.height = canvas.offsetHeight;
 
     let ctx = canvas.getContext('2d');
-    let offsetleft = canvas.getBoundingClientRect();
-
+    
     this.setState({
       canvas: canvas,
       context: ctx
