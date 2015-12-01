@@ -6,16 +6,22 @@ $ npm install react-drawable-canvas --save
 ```
 Example use:
  ```js
-const React = require('react');
-const DrawableCanvas = require('react-drawable-canvas');
+ const React = require('react');
+ const DrawableCanvas = require('react-drawable-canvas');
 
-render() {
-  return (
-    <div>
-      <DrawableCanvas />
-    </div>
-  );
-}
+ const App = React.createClass( {
+
+   render() {
+     return (
+       <div>
+         <DrawableCanvas />
+       </div>
+     );
+   }
+
+ });
+
+ module.exports = App;
 ```
 Default props is white background with black brush, size 4.
 ```js
@@ -75,6 +81,7 @@ const App = React.createClass( {
       </div>
     );
   }
+
 });
 
 module.exports = App;
