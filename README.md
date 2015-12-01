@@ -1,5 +1,5 @@
 # react-drawable-canvas
-Drawable canvas component for React.js
+Drawable canvas component for React.js.
 
 ```bash
 $ npm install react-drawable-canvas --save
