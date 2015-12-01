@@ -1,6 +1,6 @@
 {
   "name": "react-drawable-canvas",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React.js component for drawable canvas.",
   "main": "lib/index.js",
   "scripts": {
