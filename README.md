@@ -8,6 +8,7 @@ Example use:
  ```js
 const React = require('react');
 const DrawableCanvas = require('react-drawable-canvas');
+
 render() {
   return (
     <div>
@@ -18,45 +19,52 @@ render() {
 ```
 Default props is white background with black brush, size 4.
 ```js
-brushColor: "#000000",
-lineWidth: 4,
-canvasStyle: {
-  backgroundColor: "##FFFFFF"
-},
-clear: false
-};
+{
+  brushColor: '#000000',
+  lineWidth: 4,
+  canvasStyle: {
+    backgroundColor: 'FFFFFF'
+  },
+  clear: false
+}
+
 ```
 The clear property can be used to reset the drawing. All other updates should set clear to false.
 Example with buttons to clear the canvas and change the color:
 ```js
-const App = React.createClass({
-  getInitialState: function() {
+const App = React.createClass( {
+
+  getInitialState() {
     return {
-      brushColor: "#800909",
+      brushColor: '#800909',
       lineWidth: 4,
       canvasStyle: {
-        backgroundColor: "#00FFDC"
+        backgroundColor: '#00FFDC'
       },
       clear: false
     };
   },
-  handleOnClickClear(){
+
+  handleOnClickClear() {
     this.setState({
       clear: true
     });
   },
-  handleOnClickChangeColorYellow(){
+
+  handleOnClickChangeColorYellow() {
     this.setState({
-      brushColor: "#ffff00",
+      brushColor: '#ffff00',
       clear: false
     });
   },
+
   handleOnClickChangeColorRed(){
     this.setState({
-      brushColor: "#800909",
+      brushColor: '#800909',
       clear: false
     });
   },
+
   render() {
     return (
       <div>
@@ -68,4 +76,7 @@ const App = React.createClass({
     );
   }
 });
+
+module.exports = App;
+
 ```
