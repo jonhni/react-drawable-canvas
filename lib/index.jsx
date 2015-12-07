@@ -57,10 +57,19 @@ const DrawableCanvas = React.createClass({
   handleOnMouseDown(e){
     let rect = this.state.canvas.getBoundingClientRect();
     this.state.context.beginPath();
-    this.setState({
-      lastX: e.clientX - rect.left,
-      lastY: e.clientY - rect.top
-    });
+    if(this.isMobile()){
+      this.setState({
+        lastX: e.targetTouches[0].pageX - rect.left,
+        lastY: e.targetTouches[0].pageY - rect.top
+      });
+    }
+    else{
+      this.setState({
+        lastX: e.clientX - rect.left,
+        lastY: e.clientY - rect.top
+      });
+    }
+
     this.setState({
       drawing: true
     });
@@ -71,8 +80,17 @@ const DrawableCanvas = React.createClass({
       let rect = this.state.canvas.getBoundingClientRect();
       let lastX = this.state.lastX;
       let lastY = this.state.lastY;
-      let currentX = e.clientX - rect.left;
-      let currentY = e.clientY - rect.top;
+      let currentX;
+      let currentY;
+      if(this.isMobile()){
+        currentX =  e.targetTouches[0].pageX - rect.left;
+        currentY = e.targetTouches[0].pageY - rect.top;
+      }
+      else{
+        currentX = e.clientX - rect.left;
+        currentY = e.clientY - rect.top;
+      }
+
 
       this.draw(lastX, lastY, currentX, currentY);
       this.setState({
@@ -109,7 +127,13 @@ const DrawableCanvas = React.createClass({
     let custom = this.props.canvasStyle;
     return Object.assign({}, defaults, custom);
  },
-  render() {
+ isMobile(){
+   if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+     return true;
+   }
+   return false;
+ },
+ render() {
     return (
       <canvas style = {this.canvasStyle()}
         onMouseDown = {this.handleOnMouseDown}
