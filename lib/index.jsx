@@ -8,7 +8,8 @@ const DrawableCanvas = React.createClass({
     brushColor: PropTypes.string,
     lineWidth: PropTypes.number,
     canvasStyle: PropTypes.shape({
-      backgroundColor: PropTypes.string
+      backgroundColor: PropTypes.string,
+      cursor: PropTypes.string
     }),
     clear: PropTypes.bool
   },
@@ -17,7 +18,8 @@ const DrawableCanvas = React.createClass({
       brushColor: '#000000',
       lineWidth: 4,
       canvasStyle: {
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
+        cursor: 'pointer'
       },
       clear: false
     };
@@ -41,7 +43,7 @@ const DrawableCanvas = React.createClass({
     canvas.height = canvas.offsetHeight;
 
     let ctx = canvas.getContext('2d');
-    
+
     this.setState({
       canvas: canvas,
       context: ctx
@@ -96,12 +98,26 @@ const DrawableCanvas = React.createClass({
     let height = this.state.context.canvas.height;
     this.state.context.clearRect(0, 0, width, height);
   },
+  getDefaultStyle(){
+    return {
+        backgroundColor: '#FFFFFF',
+        cursor: 'pointer'
+    };
+  },
+  canvasStyle(){
+    let defaults =  this.getDefaultStyle();
+    let custom = this.props.canvasStyle;
+    return Object.assign({}, defaults, custom);
+ },
   render() {
     return (
-      <canvas style = {this.props.canvasStyle}
+      <canvas style = {this.canvasStyle()}
         onMouseDown = {this.handleOnMouseDown}
+        onTouchStart = {this.handleOnMouseDown}
         onMouseMove = {this.handleOnMouseMove}
+        onTouchMove = {this.handleOnMouseMove}
         onMouseUp = {this.handleonMouseUp}
+        onTouchEnd = {this.handleonMouseUp}
       >
       </canvas>
     );
