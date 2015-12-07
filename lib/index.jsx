@@ -118,22 +118,22 @@ const DrawableCanvas = React.createClass({
   },
   getDefaultStyle(){
     return {
-        backgroundColor: '#FFFFFF',
-        cursor: 'pointer'
+      backgroundColor: '#FFFFFF',
+      cursor: 'pointer'
     };
   },
   canvasStyle(){
     let defaults =  this.getDefaultStyle();
     let custom = this.props.canvasStyle;
     return Object.assign({}, defaults, custom);
- },
- isMobile(){
-   if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-     return true;
-   }
-   return false;
- },
- render() {
+  },
+  isMobile(){
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      return true;
+    }
+    return false;
+  },
+  render() {
     return (
       <canvas style = {this.canvasStyle()}
         onMouseDown = {this.handleOnMouseDown}
