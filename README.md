@@ -4,13 +4,11 @@ Drawable canvas component for React.js.
 ```bash
 $ npm install react-drawable-canvas --save
 ```
-Live example:
-http://react-drawable-canvas-example.herokuapp.com/
+[Live example](http://react-drawable-canvas-example.herokuapp.com/)
 
-Source example:
-https://github.com/jonhni/react-drawable-canvas-example
+[Source example](https://github.com/jonhni/react-drawable-canvas-example)
 
-Example use:
+**Example use:**
  ```js
 const React = require('react');
 const DrawableCanvas = require('react-drawable-canvas');
@@ -28,7 +26,7 @@ const App = React.createClass( {
 module.exports = App;
 ```
 Default props is white background with black brush, size 4.
-Add custom styles in the canvasStyle object.
+**Add custom styles in the canvasStyle object.**
 ```js
 {
   brushColor: '#000000',
