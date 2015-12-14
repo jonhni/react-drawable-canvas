@@ -5,9 +5,9 @@ Drawable canvas component for React.js.
 ```bash
 $ npm install react-drawable-canvas --save
 ```
-[Live example](http://react-drawable-canvas-example.herokuapp.com/)
+[Demo](http://react-drawable-canvas-example.herokuapp.com/)
 
-[Source example](https://github.com/jonhni/react-drawable-canvas-example)
+[Demo source](https://github.com/jonhni/react-drawable-canvas-example)
 
 **Example use:**
  ```js
