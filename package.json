@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "jsx lib/index.jsx > lib/index.js",
-    "prepublish": "npm run build"
+    "compile": "babel --presets react,es2015 ./lib/index.jsx > ./lib/index.js && uglifyjs ./lib/index.js --compress --mangle --output ./lib/index.js",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,8 @@
   "keywords": [
     "drawing",
     "react-component",
-    "cavas"
+    "drawable-canvas",
+    "canvas"
   ],
   "author": "jonhni",
   "license": "MIT",
@@ -24,6 +25,12 @@
   },
   "homepage": "https://github.com/jonhni/react-drawable-canvas#readme",
   "devDependencies": {
-    "react-tools": "^0.13.3"
+    "react-tools": "^0.13.3",
+    "babel-cli": "6.22.2",
+    "babel-core": "6.22.1",
+    "babel-plugin-transform-react-jsx": "6.22.0",
+    "babel-preset-es2015": "6.22.0",
+    "babel-preset-react": "6.22.0",
+    "uglify-js": "2.7.5"
   }
 }
