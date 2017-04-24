@@ -30,6 +30,8 @@ Default props is white background with black brush, size 4.
 **Add custom styles in the canvasStyle object.**
 ```js
 {
+  gridView:true,
+  gap: 50,
   brushColor: '#000000',
   lineWidth: 4,
   canvasStyle: {
