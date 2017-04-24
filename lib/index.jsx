@@ -5,6 +5,8 @@ const PropTypes = React.PropTypes;
 
 const DrawableCanvas = React.createClass({
   propTypes: {
+    gridView: PropTypes.bool,
+    gap: PropTypes.number,
     brushColor: PropTypes.string,
     lineWidth: PropTypes.number,
     canvasStyle: PropTypes.shape({
@@ -15,6 +17,8 @@ const DrawableCanvas = React.createClass({
   },
   getDefaultProps() {
     return {
+      gridView: false,
+      gap: 50,
       brushColor: '#000000',
       lineWidth: 4,
       canvasStyle: {
@@ -43,6 +47,23 @@ const DrawableCanvas = React.createClass({
     canvas.height = canvas.offsetHeight;
 
     let ctx = canvas.getContext('2d');
+
+    if (this.props.gridView) {
+        // to display the grid
+        let ecart = this.props.gap; //lenght of the cases
+        //rows
+        for(let h = ecart ; h < canvas.height ; h += ecart) {
+            ctx.moveTo(0, h); // move ctx to (x,y) without drawing
+            ctx.lineTo(canvas.width, h); //drawing to (x,y)
+        }
+        //cell
+        for(let w = ecart ; w < canvas.width ; w += ecart) {
+            ctx.moveTo(w, 0);
+            ctx.lineTo(w, canvas.height);
+        }
+        ctx.stroke();
+    }
+
 
     this.setState({
       canvas: canvas,
@@ -115,6 +136,35 @@ const DrawableCanvas = React.createClass({
     let width = this.state.context.canvas.width;
     let height = this.state.context.canvas.height;
     this.state.context.clearRect(0, 0, width, height);
+
+    if (this.props.gridView) {
+        // to display the grid
+        let canvas = ReactDOM.findDOMNode(this);
+
+        // to avoid that the rectangle is growing up
+        canvas.width  = canvas.width;
+        canvas.height = canvas.height;
+        //
+        let ctx = canvas.getContext('2d');
+
+        // to display the grid
+        let ecart = this.props.gap; //lenght of the cases
+        //rows
+        for(let h = ecart ; h < this.state.canvas.height ; h += ecart) {
+            ctx.moveTo(0, h); // move ctx to (x,y) without drawing
+            ctx.lineTo(this.state.canvas.width, h); //drawing to (x,y)
+        }
+        //cell
+        for(let w = ecart ; w < this.state.canvas.width ; w += ecart) {
+            ctx.moveTo(w, 0);
+            ctx.lineTo(w, this.state.canvas.height);
+        }
+        ctx.stroke();
+
+        this.setState({
+            context: ctx
+        });
+    }
   },
   getDefaultStyle(){
     return {
