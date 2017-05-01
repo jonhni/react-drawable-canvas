@@ -45,3 +45,4 @@ lib/index.js
 # Bundles created by webpack
 **/public/*.js
 **/public/*.map
+.idea
