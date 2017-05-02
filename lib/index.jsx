@@ -20,7 +20,9 @@ class DrawableCanvas extends React.Component {
     }
   };
   static isMobile(){
-    return ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) );
+    return (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    );
   }
 
   componentDidMount(){
@@ -112,7 +114,7 @@ class DrawableCanvas extends React.Component {
   }
 
   canvasStyle(){
-    let defaults =  DrawableCanvas.getDefaultStyle();
+    let defaults = DrawableCanvas.getDefaultStyle();
     let custom = this.props.canvasStyle;
     return Object.assign({}, defaults, custom);
   }
