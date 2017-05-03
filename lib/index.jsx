@@ -122,12 +122,12 @@ class DrawableCanvas extends React.Component {
   render() {
     return (
       <canvas style = {this.canvasStyle()}
-              onMouseDown = {this.handleOnMouseDown.bind(this)}
-              onTouchStart = {this.handleOnMouseDown.bind(this)}
-              onMouseMove = {this.handleOnMouseMove.bind(this)}
-              onTouchMove = {this.handleOnMouseMove.bind(this)}
-              onMouseUp = {this.handleonMouseUp.bind(this)}
-              onTouchEnd = {this.handleonMouseUp.bind(this)}
+        onMouseDown = {this.handleOnMouseDown.bind(this)}
+        onTouchStart = {this.handleOnMouseDown.bind(this)}
+        onMouseMove = {this.handleOnMouseMove.bind(this)}
+        onTouchMove = {this.handleOnMouseMove.bind(this)}
+        onMouseUp = {this.handleonMouseUp.bind(this)}
+        onTouchEnd = {this.handleonMouseUp.bind(this)}
       >
       </canvas>
     );
