@@ -27,8 +27,13 @@ class DrawableCanvas extends React.Component {
   }
   static getDefaultStyle() {
     return {
-      backgroundColor: '#FFFFFF',
-      cursor: 'pointer'
+      brushColor: '#FFFF00',
+      lineWidth: 4,
+      cursor: 'pointer',
+      canvasStyle: {
+        backgroundColor: '#00FFDC'
+      },
+      clear: false
     };
   }
 
@@ -90,9 +95,11 @@ class DrawableCanvas extends React.Component {
   }
 
   draw(lX, lY, cX, cY) {
+    const newContext = this.state.context;
+    newContext.strokeStyle = this.props.brushColor;
+    newContext.lineWidth = this.props.lineWidth;
     this.setState({
-      strokeStyle: this.props.brushColor,
-      lineWidth: this.props.lineWidth
+      context: newContext
     });
     this.state.context.moveTo(lX, lY);
     this.state.context.lineTo(cX, cY);
@@ -108,6 +115,7 @@ class DrawableCanvas extends React.Component {
   canvasStyle(){
     const defaults = DrawableCanvas.getDefaultStyle();
     const custom = this.props.canvasStyle;
+
     return Object.assign({}, defaults, custom);
   }
 
@@ -130,9 +138,9 @@ class DrawableCanvas extends React.Component {
 DrawableCanvas.propTypes = {
   brushColor: PropTypes.string,
   lineWidth: PropTypes.number,
+  cursor: PropTypes.string,
   canvasStyle: PropTypes.shape({
-    backgroundColor: PropTypes.string,
-    cursor: PropTypes.string
+    backgroundColor: PropTypes.string
   }),
   clear: PropTypes.bool
 };
