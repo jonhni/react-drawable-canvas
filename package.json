@@ -16,7 +16,9 @@
     "drawing",
     "react-component",
     "drawable-canvas",
-    "canvas"
+    "canvas",
+    "drawable",
+    "draw"
   ],
   "author": "jonhni",
   "license": "MIT",
