@@ -1,52 +1,17 @@
-'use strict';
-const React = require('react');
-const ReactDOM = require('react-dom');
-const PropTypes = React.PropTypes;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
-const DrawableCanvas = React.createClass({
-  propTypes: {
-    gridView: PropTypes.bool,
-    gap: PropTypes.number,
-    brushColor: PropTypes.string,
-    lineWidth: PropTypes.number,
-    canvasStyle: PropTypes.shape({
-      backgroundColor: PropTypes.string,
-      cursor: PropTypes.string
-    }),
-    clear: PropTypes.bool
-  },
-  getDefaultProps() {
-    return {
-      gridView: false,
-      gap: 50,
-      brushColor: '#000000',
-      lineWidth: 4,
-      canvasStyle: {
-        backgroundColor: '#FFFFFF',
-        cursor: 'pointer'
-      },
-      clear: false
-    };
-  },
-  getInitialState(){
-    return {
-      canvas: null,
-      context: null,
-      drawing: false,
-      lastX: 0,
-      lastY: 0,
-      history: []
-    };
-  },
+class DrawableCanvas extends React.Component {
   componentDidMount(){
-    let canvas = ReactDOM.findDOMNode(this);
+    const canvas = ReactDOM.findDOMNode(this);
 
     canvas.style.width = '100%';
     canvas.style.height = '100%';
-    canvas.width  = canvas.offsetWidth;
+    canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    let ctx = canvas.getContext('2d');
+    const context = canvas.getContext('2d');
 
     if (this.props.gridView) {
         // to display the grid
@@ -66,25 +31,45 @@ const DrawableCanvas = React.createClass({
 
 
     this.setState({
-      canvas: canvas,
-      context: ctx
+      canvas,
+      context
     });
-  },
-  componentWillReceiveProps: function(nextProps) {
+  }
+
+  componentWillReceiveProps(nextProps) {
     if(nextProps.clear){
       this.resetCanvas();
     }
-  },
+  }
+  static getDefaultStyle() {
+    return {
+      gridView: false,
+      gap: 50,
+      brushColor: '#FFFF00',
+      lineWidth: 4,
+      cursor: 'pointer',
+      canvasStyle: {
+        backgroundColor: '#00FFDC'
+      },
+      clear: false
+    };
+  }
+
+  static isMobile(){
+    return (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    );
+  }
+
   handleOnMouseDown(e){
-    let rect = this.state.canvas.getBoundingClientRect();
+    const rect = this.state.canvas.getBoundingClientRect();
     this.state.context.beginPath();
-    if(this.isMobile()){
+    if(DrawableCanvas.isMobile()){
       this.setState({
         lastX: e.targetTouches[0].pageX - rect.left,
         lastY: e.targetTouches[0].pageY - rect.top
       });
-    }
-    else{
+    } else{
       this.setState({
         lastX: e.clientX - rect.left,
         lastY: e.clientY - rect.top
@@ -94,20 +79,20 @@ const DrawableCanvas = React.createClass({
     this.setState({
       drawing: true
     });
-  },
+  }
+
   handleOnMouseMove(e){
 
     if(this.state.drawing){
-      let rect = this.state.canvas.getBoundingClientRect();
-      let lastX = this.state.lastX;
-      let lastY = this.state.lastY;
+      const rect = this.state.canvas.getBoundingClientRect();
+      const lastX = this.state.lastX;
+      const lastY = this.state.lastY;
       let currentX;
       let currentY;
-      if(this.isMobile()){
-        currentX =  e.targetTouches[0].pageX - rect.left;
+      if(DrawableCanvas.isMobile()){
+        currentX = e.targetTouches[0].pageX - rect.left;
         currentY = e.targetTouches[0].pageY - rect.top;
-      }
-      else{
+      } else{
         currentX = e.clientX - rect.left;
         currentY = e.clientY - rect.top;
       }
@@ -119,22 +104,29 @@ const DrawableCanvas = React.createClass({
         lastY: currentY
       });
     }
-  },
-  handleonMouseUp(){
+  }
+
+  handleonMouseUp() {
     this.setState({
       drawing: false
     });
-  },
-  draw(lX, lY, cX, cY){
-    this.state.context.strokeStyle = this.props.brushColor;
-    this.state.context.lineWidth = this.props.lineWidth;
-    this.state.context.moveTo(lX,lY);
-    this.state.context.lineTo(cX,cY);
+  }
+
+  draw(lX, lY, cX, cY) {
+    const newContext = this.state.context;
+    newContext.strokeStyle = this.props.brushColor;
+    newContext.lineWidth = this.props.lineWidth;
+    this.setState({
+      context: newContext
+    });
+    this.state.context.moveTo(lX, lY);
+    this.state.context.lineTo(cX, cY);
     this.state.context.stroke();
-  },
+  }
+
   resetCanvas(){
-    let width = this.state.context.canvas.width;
-    let height = this.state.context.canvas.height;
+    const width = this.state.context.canvas.width;
+    const height = this.state.context.canvas.height;
     this.state.context.clearRect(0, 0, width, height);
 
     if (this.props.gridView) {
@@ -165,38 +157,41 @@ const DrawableCanvas = React.createClass({
             context: ctx
         });
     }
-  },
-  getDefaultStyle(){
-    return {
-      backgroundColor: '#FFFFFF',
-      cursor: 'pointer'
-    };
-  },
+  }
+
   canvasStyle(){
-    let defaults =  this.getDefaultStyle();
-    let custom = this.props.canvasStyle;
+    const defaults = DrawableCanvas.getDefaultStyle();
+    const custom = this.props.canvasStyle;
+
     return Object.assign({}, defaults, custom);
-  },
-  isMobile(){
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      return true;
-    }
-    return false;
-  },
+  }
+
   render() {
     return (
       <canvas style = {this.canvasStyle()}
-        onMouseDown = {this.handleOnMouseDown}
-        onTouchStart = {this.handleOnMouseDown}
-        onMouseMove = {this.handleOnMouseMove}
-        onTouchMove = {this.handleOnMouseMove}
-        onMouseUp = {this.handleonMouseUp}
-        onTouchEnd = {this.handleonMouseUp}
+        onMouseDown = {this.handleOnMouseDown.bind(this)}
+        onTouchStart = {this.handleOnMouseDown.bind(this)}
+        onMouseMove = {this.handleOnMouseMove.bind(this)}
+        onTouchMove = {this.handleOnMouseMove.bind(this)}
+        onMouseUp = {this.handleonMouseUp.bind(this)}
+        onTouchEnd = {this.handleonMouseUp.bind(this)}
       >
       </canvas>
     );
   }
 
-});
+}
 
-module.exports = DrawableCanvas;
+DrawableCanvas.propTypes = {
+  gridView: PropTypes.bool,
+  gap: PropTypes.number,
+  brushColor: PropTypes.string,
+  lineWidth: PropTypes.number,
+  cursor: PropTypes.string,
+  canvasStyle: PropTypes.shape({
+    backgroundColor: PropTypes.string
+  }),
+  clear: PropTypes.bool
+};
+
+export default DrawableCanvas;
