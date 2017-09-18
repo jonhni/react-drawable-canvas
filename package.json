@@ -42,5 +42,8 @@
     "react": "^15.6.0",
     "react-dom": "^15.6.0",
     "prop-types": "^15.5.8"
+  },
+  "dependencies": {
+    "object-assign": "^4.1.1"
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import assign from 'object-assign'
 
 class DrawableCanvas extends React.Component {
 
@@ -117,7 +118,7 @@ class DrawableCanvas extends React.Component {
     const defaults = DrawableCanvas.getDefaultStyle();
     const custom = this.props.canvasStyle;
 
-    return Object.assign({}, defaults, custom);
+    return assign({}, defaults, custom);
   }
 
   render() {
