@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import assign from 'object-assign'
 
 class DrawableCanvas extends React.Component {
-
   componentDidMount(){
     const canvas = ReactDOM.findDOMNode(this);
 
@@ -14,6 +13,23 @@ class DrawableCanvas extends React.Component {
     canvas.height = canvas.offsetHeight;
 
     const context = canvas.getContext('2d');
+
+    if (this.props.gridView) {
+        // to display the grid
+        let ecart = this.props.gap; //lenght of the cases
+        //rows
+        for(let h = ecart ; h < canvas.height ; h += ecart) {
+            ctx.moveTo(0, h); // move ctx to (x,y) without drawing
+            ctx.lineTo(canvas.width, h); //drawing to (x,y)
+        }
+        //cell
+        for(let w = ecart ; w < canvas.width ; w += ecart) {
+            ctx.moveTo(w, 0);
+            ctx.lineTo(w, canvas.height);
+        }
+        ctx.stroke();
+    }
+
 
     this.setState({
       canvas,
@@ -28,6 +44,8 @@ class DrawableCanvas extends React.Component {
   }
   static getDefaultStyle() {
     return {
+      gridView: false,
+      gap: 50,
       brushColor: '#FFFF00',
       lineWidth: 4,
       cursor: 'pointer',
@@ -112,6 +130,35 @@ class DrawableCanvas extends React.Component {
     const width = this.state.context.canvas.width;
     const height = this.state.context.canvas.height;
     this.state.context.clearRect(0, 0, width, height);
+
+    if (this.props.gridView) {
+        // to display the grid
+        let canvas = ReactDOM.findDOMNode(this);
+
+        // to avoid that the rectangle is growing up
+        canvas.width  = canvas.width;
+        canvas.height = canvas.height;
+        //
+        let ctx = canvas.getContext('2d');
+
+        // to display the grid
+        let ecart = this.props.gap; //lenght of the cases
+        //rows
+        for(let h = ecart ; h < this.state.canvas.height ; h += ecart) {
+            ctx.moveTo(0, h); // move ctx to (x,y) without drawing
+            ctx.lineTo(this.state.canvas.width, h); //drawing to (x,y)
+        }
+        //cell
+        for(let w = ecart ; w < this.state.canvas.width ; w += ecart) {
+            ctx.moveTo(w, 0);
+            ctx.lineTo(w, this.state.canvas.height);
+        }
+        ctx.stroke();
+
+        this.setState({
+            context: ctx
+        });
+    }
   }
 
   canvasStyle(){
@@ -138,6 +185,8 @@ class DrawableCanvas extends React.Component {
 }
 
 DrawableCanvas.propTypes = {
+  gridView: PropTypes.bool,
+  gap: PropTypes.number,
   brushColor: PropTypes.string,
   lineWidth: PropTypes.number,
   cursor: PropTypes.string,
