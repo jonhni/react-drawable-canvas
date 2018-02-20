@@ -15,6 +15,17 @@ class DrawableCanvas extends React.Component {
 
     const context = canvas.getContext('2d');
 
+    if(this.props.defaultImage)
+    {
+      let image = new Image();
+      image.src = this.props.defaultImage;
+      
+      image.onload = function()
+      {
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      };
+    }
+
     this.setState({
       canvas,
       context
@@ -94,6 +105,11 @@ class DrawableCanvas extends React.Component {
     this.setState({
       drawing: false
     });
+
+    if(this.props.onDraw)
+    {
+      this.props.onDraw(this.state.canvas.toDataURL());
+    }
   }
 
   draw(lX, lY, cX, cY) {
